@@ -4,11 +4,7 @@
 <meta charset="UTF-8">
 <title>Tuất Trí Culiet</title>
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     height: 100vh;
@@ -20,21 +16,27 @@
     overflow: hidden;
   }
 
-  .container {
-    text-align: center;
-  }
+  .container { text-align: center; }
 
   .text {
     font-size: 4rem;
     font-weight: 900;
     letter-spacing: 4px;
-    background: linear-gradient(90deg, #ff0080, #ff8c00, #ffd700, #00ff88, #00bfff, #8a2be2, #ff0080);
-    background-size: 400% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: rainbow 5s linear infinite, glow 2s ease-in-out infinite alternate;
     text-transform: uppercase;
+    color: #ffd700; /* Màu vàng dự phòng, luôn hiện */
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  /* Chỉ áp dụng gradient khi trình duyệt hỗ trợ */
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    .text {
+      background: linear-gradient(90deg, #ff0080, #ff8c00, #ffd700, #00ff88, #00bfff, #8a2be2, #ff0080);
+      background-size: 400% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: rainbow 5s linear infinite, glow 2s ease-in-out infinite alternate;
+    }
   }
 
   @keyframes rainbow {
@@ -60,7 +62,6 @@
     to   { opacity: 1; }
   }
 
-  /* Hiệu ứng từng chữ cái nhấp nhô */
   .text span {
     display: inline-block;
     animation: bounce 1.5s ease-in-out infinite;
@@ -76,14 +77,15 @@
 </head>
 <body>
   <div class="container">
-    <h1 class="text" id="mainText"></h1>
+    <h1 class="text" id="mainText">TUẤT TRÍ CULIET</h1>
     <p class="sub">✦ CHÚC MỪNG ✦</p>
   </div>
 
   <script>
     const text = "TUẤT TRÍ CULIET";
     const el = document.getElementById("mainText");
-    el.innerHTML = text.split("").map(ch => 
+    // Nếu JS chạy, thay bằng từng chữ cái để nhấp nhô
+    el.innerHTML = text.split("").map(ch =>
       ch === " " ? "&nbsp;" : `<span>${ch}</span>`
     ).join("");
   </script>
